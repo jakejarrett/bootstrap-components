@@ -2,14 +2,18 @@
 @import "~bootstrap/scss/_variables";
 
 .home {
-  margin-top: 10px;
+    &-container {
+        text-align: center;
+        padding: 50px;
 
-  /** Styles **/
-  .jumbotron {
-    background: $gray-dark;
-    color: white;
+        position: relative;
+        color: #cdbfe3;
+        background-image: -webkit-linear-gradient(315deg, #271b38, #563d7c, #7952b3);
+        background-image: -o-linear-gradient(315deg, #271b38, #563d7c, #7952b3);
+        background-image: linear-gradient(135deg, #271b38, #563d7c, #7952b3);
 
-    /** Autoprefixer will append prefixes for us to support ie. **/
-    display: flex;
-  }
+        h1 {
+            font-weight: 100;
+        }
+    }
 }

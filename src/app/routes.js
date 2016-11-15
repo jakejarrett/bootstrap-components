@@ -1,6 +1,6 @@
 import * as Marionette from "backbone.marionette";
 import HomeRoute from "../modules/pages/home/controllers/router";
-import FeaturesRoute from "../modules/pages/features/controllers/router";
+import ComponentsRoute from "../modules/pages/components/controllers/router";
 
 let LocalRouter = Marionette.AppRouter.extend({});
 
@@ -12,7 +12,7 @@ let Router = new LocalRouter();
  */
 let RouteRegistration = [
     new HomeRoute(),
-    new FeaturesRoute()
+    new ComponentsRoute()
 ];
 
 /**

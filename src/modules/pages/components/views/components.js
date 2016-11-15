@@ -2,17 +2,17 @@ import App from "app/app";
 import Marionette, { View } from "marionette";
 import {className, tagName, template, on} from "modules/common/controllers/decorators";
 import NavigationView from "modules/common/views/navigation/navigation";
-import Template from "./features.html";
-import Styles from "./features.scss";
+import Template from "./components.html";
+import Styles from "./components.scss";
 
 /**
  * Features view
  *
  * @module modules/pages/features
  */
-@className("features")
+@className("components")
 @template(Template)
-class FeaturesView extends View {
+class ComponentsView extends View {
 
     /**
      * When the template of the page has been updated, re render the template
@@ -23,7 +23,7 @@ class FeaturesView extends View {
 
         if(module.hot) {
             /** Require the template & re-render :) **/
-            module.hot.accept("./features.html", () => that.$el.html(_.template(require("./features.html"))));
+            module.hot.accept("./components.html", () => that.$el.html(_.template(require("./components.html"))));
         }
     }
 
@@ -44,4 +44,4 @@ class FeaturesView extends View {
  *
  * @exports FeaturesView
  */
-export default FeaturesView;
+export default ComponentsView;

@@ -1,6 +1,6 @@
 import Marionette, { AppRouter } from "marionette";
 import {controller, appRoute} from "modules/common/controllers/decorators";
-import FeaturesRouterController from "./router-contoller";
+import ComponentsRouterController from "./router-contoller";
 import App from "app/app";
 
 /**
@@ -8,8 +8,8 @@ import App from "app/app";
  *
  * @module modules/pages/features
  */
-@controller(new FeaturesRouterController)
-class FeaturesRoute extends AppRouter {
+@controller(new ComponentsRouterController)
+class ComponentsRoute extends AppRouter {
 
     constructor (...args) {
         super(args);
@@ -20,9 +20,9 @@ class FeaturesRoute extends AppRouter {
      *
      * @protected
      */
-    @appRoute("features(/)")
-    startFeaturesRoute () {
-        System.import("../views/features").then(View => App.getContentContainer().show(new View.default()));
+    @appRoute("components(/)")
+    startComponentsRoute () {
+        System.import("../views/components").then(View => App.getContentContainer().show(new View.default()));
     }
 
 }
@@ -32,4 +32,4 @@ class FeaturesRoute extends AppRouter {
  *
  * @exports HomeRouter
  */
-export default FeaturesRoute;
+export default ComponentsRoute;

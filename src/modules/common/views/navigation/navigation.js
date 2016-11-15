@@ -1,6 +1,6 @@
 import * as Backbone from "backbone";
 import Marionette, { View } from "marionette";
-import {active, template, on} from "modules/common/controllers/decorators";
+import {active, className, template, on} from "modules/common/controllers/decorators";
 import Template from "./navigation.html";
 import Styles from "./navigation.scss";
 import Router from "app/routes";
@@ -11,6 +11,7 @@ import Router from "app/routes";
  * @module modules/common/views/navigation
  */
 @active("home")
+@className("container")
 @template(Template)
 class NavigationView extends View {
 
