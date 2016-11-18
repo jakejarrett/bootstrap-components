@@ -10,6 +10,8 @@ class ComponentsRouterController extends Object {
      */
     startComponentsRoute () {}
 
+    startComponentsRouteWithParam () {}
+
 }
 
 /**

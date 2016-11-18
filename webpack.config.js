@@ -40,26 +40,10 @@ var config = {
             {
                 /** Compiles ES6 to ES5 **/
                 test: /\.js$/,
-                loader: "babel",
-                query: {
-                    plugins: [
-                        "transform-runtime",
-                        "transform-decorators-legacy",
-                        "syntax-decorators",
-                        "transform-decorators",
-                        "transform-function-bind",
-                        ["transform-es2015-arrow-functions", { "spec": false }],
-                        "transform-es2015-shorthand-properties",
-                        "transform-es2015-spread",
-                        "transform-es2015-parameters",
-                        "transform-es2015-block-scoping",
-                        "transform-es2015-template-literals",
-                        "transform-es2015-classes"
-                    ],
-                    presets: ["es2016"]
-                },
+                loader: "babel?babelrc=true",
                 exclude: [nodeModulesPath]
             },
+
             {
                 /** Support importing .html templates **/
                 test: /\.html$/,
@@ -82,6 +66,11 @@ var config = {
             postcss: function() {
                 return [autoprefixer, precss];
             }
+        }),
+        new Webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
         })
     ],
 

@@ -18,12 +18,16 @@ class ComponentsView extends View {
      * When the template of the page has been updated, re render the template
      * (This won't preserve state)
      */
-    initialize () {
+    initialize (options) {
         var that = this;
 
         if(module.hot) {
             /** Require the template & re-render :) **/
             module.hot.accept("./components.html", () => that.$el.html(_.template(require("./components.html"))));
+        }
+        console.log(options.urlParms);
+        if(options.urlParms) {
+            this.registerComponent(options.urlParms)
         }
     }
 
@@ -36,6 +40,10 @@ class ComponentsView extends View {
         var Navigation =  new NavigationView();
         App.getNavigationContainer().show(Navigation);
         Navigation.setItemAsActive("features");
+    }
+
+    registerComponent (component) {
+        console.log(component);
     }
 }
 

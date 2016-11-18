@@ -21,8 +21,14 @@ class ComponentsRoute extends AppRouter {
      * @protected
      */
     @appRoute("components(/)")
-    startComponentsRoute () {
+    startComponentsRoute (params) {
+        console.log(params);
         System.import("../views/components").then(View => App.getContentContainer().show(new View.default()));
+    }
+
+    @appRoute("components/:componentName")
+    startComponentsRouteWithParam (params) {
+        System.import("../views/components").then(View => App.getContentContainer().show(new View.default({urlParams: params})));
     }
 
 }

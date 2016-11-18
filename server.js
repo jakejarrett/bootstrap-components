@@ -95,6 +95,7 @@ app.get(serverSideRendering.toplevelSection, (req, res) => {
     const isAssetsFolder = serverSideRendering.isAssetsSection.test(req.originalUrl);
     const isManifestFile = req.params[0] === "manifest.json";
     const shouldBuildFile = (!isBuild && !isServiceWorker && !isAssetsFolder && !isManifestFile);
+    const sliced = req.originalUrl.split("/").slice(0);
 
     /**
      * If its the build folder, return the requested file :)
@@ -118,11 +119,15 @@ app.get(serverSideRendering.toplevelSection, (req, res) => {
         res.sendFile(`${helpers.getPublicPath()}/${req.params[0]}`)
     }
 
-    /**
-     * Extract the menu item name from the path and attach it to
-     * the request to have it available for template rendering.
-     */
-    req.item = req.params[0] || "home";
+    if(-1 !== sliced.indexOf("components")) {
+        req.item = "components"
+    } else {
+        /**
+         * Extract the menu item name from the path and attach it to
+         * the request to have it available for template rendering.
+         */
+        req.item = req.params[0] || "home";
+    }
 
     /**
      * To prevent issues, we'll only send the partials if its not the /build/ files & service workers.
