@@ -75,6 +75,11 @@ var config = {
     ],
 
     resolve: {
+        modules: [
+            "node_modules",
+            path.resolve(__dirname, "public")
+        ],
+        extensions: [".js"],
         alias: {
             "marionette": "backbone.marionette",
             "underscore": "lodash",
@@ -83,7 +88,8 @@ var config = {
              * Convenience
              */
             "app": path.resolve(srcPath, "app"),
-            "modules": path.resolve(srcPath, "modules")
+            "modules": path.resolve(srcPath, "modules"),
+            "Bootstrap": path.resolve(__dirname, "node_modules/bootstrap/js/src")
         }
     }
 };
