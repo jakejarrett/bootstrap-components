@@ -72,6 +72,7 @@ App.on("start", () => {
      * Setup Service worker!
      */
     if("serviceWorker" in navigator) {
+        return;
         navigator.serviceWorker.register("/sw.js", { scope: "/" })
             .then(registration => console.log("Service Worker Registered"));
 
@@ -145,6 +146,13 @@ App.layoutView.on("before:empty", (view) => globalChannel.trigger("app:pageWillC
  * Provide a singleton component controller for the app.
  */
 App.Compontents = new ComponentController;
+
+/**
+ * Set the page title.
+ *
+ * @param pageTitle {String} The page title.
+ */
+App.setPageTitle = pageTitle => window.document.title = pageTitle;
 
 /**
  * Export the application

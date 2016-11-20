@@ -1,13 +1,12 @@
 import App from "app/app";
 import Marionette, { View } from "marionette";
-import Clipboard from "clipboard";
-import * as Prism from "prismjs";
-import "../controllers/prism-plugins";
 import Alert from "Bootstrap/alert";
 import {className, tagName, template, on} from "modules/common/controllers/decorators";
 import NavigationView from "modules/common/views/navigation/navigation";
 import Template from "./components.html";
 import Styles from "./components.scss";
+import SyntaxHighlighting from "modules/common/components/syntax-highlighting";
+import ComponentView from "modules/common/components/component-view";
 
 /**
  * Features view
@@ -16,7 +15,7 @@ import Styles from "./components.scss";
  */
 @className("components")
 @template(Template)
-class ComponentsView extends View {
+class ComponentsView extends ComponentView {
 
     /**
      * When the template of the page has been updated, re render the template
@@ -29,10 +28,15 @@ class ComponentsView extends View {
             /** Require the template & re-render :) **/
             module.hot.accept("./components.html", () => that.$el.html(_.template(require("./components.html"))));
         }
-        console.log(options);
+
         if(options.urlParams) {
             this.component = options.urlParams;
+            this.title = `Components - ${this.component.charAt(0).toUpperCase() + this.component.slice(1)}`;
+        } else {
+            this.title = "Components";
         }
+
+        App.setPageTitle(`${this.title}`);
     }
 
     /**
@@ -49,29 +53,18 @@ class ComponentsView extends View {
         var Navigation =  new NavigationView();
         App.getNavigationContainer().show(Navigation);
         Navigation.setItemAsActive("components");
-        this.registerComponent(this.component);
+        this.showComponent(this.component);
 
     }
 
-    registerComponent (component) {
+    showComponent (component) {
         const that = this;
         const el = that.el.querySelector("[data-role='content-container']");
-        const codeEl = that.el.querySelector("[data-role='code-container']");
-
-        Prism.plugins.NormalizeWhitespace.setDefaults({
-            'remove-trailing': true,
-            'remove-indent': true,
-            'left-trim': true,
-            'right-trim': true,
-            /*'break-lines': 80,
-            'indent': 2,
-            'remove-initial-line-feed': false,
-            'tabs-to-spaces': 4,
-            'spaces-to-tabs': 4*/
-        });
+        const descriptionElement = that.el.querySelector("[data-role='description-container']");
 
         switch(component) {
             case "alerts": {
+
                 el.innerHTML = `
                 <div class="alert alert-success" role="alert">
                     <strong>Well done!</strong> You successfully read this important alert message.
@@ -87,25 +80,32 @@ class ComponentsView extends View {
                 </div>
                 `;
 
-                el.querySelectorAll(".alert").forEach(element => new Alert(element))
-                const js = Prism.highlight(`
-                    // Javascript
-                    /** Import the alert **/
-                    import Alert from "Bootstrap/alert";
+                el.querySelectorAll(".alert").forEach(element => new Alert(element));
 
-                    // We Assume you already have an element with the alert
+                this.registerComponent("javascript-content", SyntaxHighlighting, descriptionElement, {
+                    source: `
+                        // Javascript
+                        /** Import the alert **/
+                        import Alert from "Bootstrap/alert";
 
-                    /** Assign it to the alert **/
-                    const alert = new Alert(el.querySelectorAll(".alert"));
-                `, Prism.languages.javascript);
+                        // We Assume you already have an element with the alert
 
-                const html = Prism.highlight(`// HTML
-                    <div class="alert alert-success" role="alert">
-                        <strong>Well done!</strong> You successfully read this important alert message.
-                    </div>
-                `, Prism.languages.html);
+                        /** Assign it to the alert **/
+                        const alert = new Alert(el.querySelectorAll(".alert"));
+                    `,
+                    language: "javascript"
+                });
 
-                codeEl.innerHTML = `${html} ${js}`;
+                this.registerComponent("html-content", SyntaxHighlighting, descriptionElement, {
+                    source: `
+                       <!-- HTML -->
+                       <div class="alert alert-success" role="alert">
+                           <strong>Well done!</strong> You successfully read this important alert message.
+                       </div>
+                   `,
+                    language: "markup"
+                });
+
                 break;
             }
 
