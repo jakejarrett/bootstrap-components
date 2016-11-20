@@ -1,9 +1,11 @@
 import App from "app/app";
 import Marionette, { View } from "marionette";
-import { attribute } from "modules/common/controllers/decorators";
+import { attributes } from "modules/common/controllers/decorators";
 
-@attribute("components", {})
-@attribute("componentChannels", {})
+@attributes({
+    components: {},
+    componentChannels: {}
+})
 class ComponentView extends View {
 
     /**

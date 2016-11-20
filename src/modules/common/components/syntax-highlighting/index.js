@@ -25,31 +25,31 @@ class SyntaxHighlighting extends Component {
      */
     render (elementName) {
         var that = this;
-
         this.setupPrism();
         const renderedTemplate = _.template(Template)({
             language: that.props.language,
-            html: that.highlightedEl,
-            prism: Prism
+            html: that.highlightedEl
         });
-
         this.renderComponent(elementName, renderedTemplate, Styles);
     }
 
     setupPrism () {
+        /**
+         * TODO- Get plugins working. (they're registered in the global/window namespace)
+         */
         Prism.plugins.NormalizeWhitespace.setDefaults({
             'remove-trailing': true,
             'remove-indent': true,
             'left-trim': true,
-            'right-trim': true,
-            /*'break-lines': 80,
-            'indent': 2,
-            'remove-initial-line-feed': false,
-            'tabs-to-spaces': 4,
-            'spaces-to-tabs': 4*/
+            'right-trim': true
         });
 
         this.highlightedEl = Prism.highlight(this.props.source, Prism.languages[this.props.language]);
+    }
+
+    @on("click")
+    onClick () {
+        console.log(this);
     }
 
 }

@@ -62,8 +62,14 @@ class ComponentsView extends ComponentView {
         const el = that.el.querySelector("[data-role='content-container']");
         const descriptionElement = that.el.querySelector("[data-role='description-container']");
 
+        const componentTitle = that.el.querySelector("[data-role='component-title']");
+        const componentDescription = that.el.querySelector("[data-role='component-description']");
+
         switch(component) {
             case "alerts": {
+
+                componentTitle.innerHTML = "Alerts";
+                componentDescription.innerHTML = "Description about alerts";
 
                 el.innerHTML = `
                 <div class="alert alert-success" role="alert">
